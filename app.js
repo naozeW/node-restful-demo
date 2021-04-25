@@ -18,13 +18,17 @@ app.all('*', function(req, res, next) {
     next();
 });
 
+app.get("/", function (req, res) {
+  res.send("<h1>Hello World!</h1>")
+})
+
 route(app)
 
 app.listen(process.env.PORT || 3000,'0.0.0.0')
 
 console.log('listen on port =>' + port)
 
-app.use(express.static(__dirname+"/public"));
+
 
 
 

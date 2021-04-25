@@ -18,7 +18,7 @@ app.all('*', function(req, res, next) {
     next();
 });
 
-const port = 3333;
+const port = 80;
 
 app.set('port', port)
 route(app)

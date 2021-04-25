@@ -1,8 +1,8 @@
-#start application
+#start application  
 [Confirm that the current directory is in `core`]  
-run this cmd
-```npm install```
-```node app.js```
+run this cmd  
+```npm install```  
+```node app.js```  
 
 #api list  
 ##api/by_course_code/:qcode  

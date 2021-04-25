@@ -18,12 +18,9 @@ app.all('*', function(req, res, next) {
     next();
 });
 
-const port = 33333;
-
-app.set('port', port)
 route(app)
 
-app.listen(app.get('port'),'0.0.0.0')
+app.listen(process.env.PORT || 3000,'0.0.0.0')
 
 console.log('listen on port =>' + port)
 

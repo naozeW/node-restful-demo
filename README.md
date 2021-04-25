@@ -1,5 +1,5 @@
 #start application  
-[Confirm that the current directory is in `core`]  
+[Confirm that the current directory is in `root`]  
 run this cmd  
 ```npm install```  
 ```node app.js```  

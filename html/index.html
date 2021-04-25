@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>query-demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container-fluid" style="margin-top: 10px">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-3 mb-3">
+                    <input type="checkbox" class="" id="code_check">
+                    <label for="code">Course Code</label>
+                    <input type="text" class="form-control" id="code" placeholder="" value="" required="">
+
+                </div>
+                <div class="col-md-3 mb-3">
+                    <input type="checkbox" class="" id="level_check">
+                    <label for="level">Course Level</label>
+                    <select class="form-control" id="level">
+                        <option value="">please select level</option>
+                        <option value="graduate">graduate</option>
+                        <option value="undergraduate">undergraduate</option>
+                    </select>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <input type="checkbox" class="" value="1" id="title_check">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" id="title" placeholder="" value="" required="">
+                </div>
+                <div class="col-md-3 mb-3">
+                    <input type="checkbox" class="" id="instructor_check">
+                    <label for="instructor">Instructor</label>
+                    <input type="text" class="form-control" id="instructor" placeholder="" value="" required="">
+                </div>
+            </div>
+
+            <div class="row">
+                <button type="button" class="btn btn-primary" onclick="query_data()">Query</button>
+            </div>
+
+        </div>
+    </div>
+    <div class="card">
+        <div class="table-responsive">
+            <table class="table table-striped table-sm">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>course_code</th>
+                    <th>course_level</th>
+                    <th>title</th>
+                    <th>instructor</th>
+                </tr>
+                </thead>
+                <tbody id="data-container">
+                <tr>
+                    <td>1,001</td>
+                    <td>Lorem</td>
+                    <td>ipsum</td>
+                    <td>dolor</td>
+                    <td>sit</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-LCPyFKQyML7mqtS+4XytolfqyqSlcbB3bvDuH9vX2sdQMxRonb/M3b9EmhCNNNrV" crossorigin="anonymous"></script>
+<script>
+
+    var HOST = 'http://localhost:3333/';
+    function query_data() {
+        let level = $('#level').val()
+        let level_check = $('#level_check').is(":checked")
+        let code = $('#code').val()
+        let code_check = $('#code_check').is(":checked")
+        let title = $('#title').val()
+        let title_check = $('#title_check').is(":checked")
+        let instructor = $('#instructor').val()
+        let instructor_check = $('#instructor_check').is(":checked")
+
+        if (code_check === true && code != '') {
+            render_list('api/by_course_code/'+ code);return false;
+        }
+        if (level_check === true && level != '') {
+            render_list('api/by_level/'+ level);return false;
+        }
+        if (title_check === true && title != '') {
+            render_list('api/by_title/'+ title);return false;
+        }
+        if (instructor_check === true && instructor != '') {
+            render_list('api/by_instructor/'+ instructor);return false;
+        }
+        if (instructor_check === true && instructor != '' && level_check === true && level != '') {
+            render_list('api/combined_query/'+ instructor + '/' + level);return false;
+        }
+    }
+
+    function render_list(base_api) {
+        let url = HOST + base_api;
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                var append_html = ''
+                data.forEach(function (item, index) {
+                    append_html += `<tr><td>${index}</td><td>${item.course_code}</td><td>${item.course_level}</td><td>${item.instructor}</td><td>${item.title}</td></tr>`
+                })
+                $('#data-container').empty().append(append_html);
+            })
+            .catch(e => console.log("Oops, error", e))
+    }
+</script>

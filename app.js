@@ -24,7 +24,9 @@ app.get("/", function (req, res) {
 
 route(app)
 
-app.listen(process.env.PORT || 3000,'0.0.0.0')
+const PORT = process.env.PORT || 80
+
+app.listen(PORT)
 
 console.log('listen on port =>' + port)
 

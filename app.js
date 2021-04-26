@@ -28,7 +28,7 @@ const PORT = process.env.PORT || 80
 
 app.listen(PORT)
 
-console.log('listen on port =>' + port)
+console.log('listen on port =>' + PORT)
 
 
 

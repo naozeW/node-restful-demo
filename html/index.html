@@ -106,7 +106,7 @@
             .then(data => {
                 var append_html = ''
                 data.forEach(function (item, index) {
-                    append_html += `<tr><td>${index}</td><td>${item.course_code}</td><td>${item.course_level}</td><td>${item.instructor}</td><td>${item.title}</td></tr>`
+                    append_html += `<tr><td>${index}</td><td>${item.course_code}</td><td>${item.course_level}</td><td>${item.title}</td><td>${item.instructor}</td></tr>`
                 })
                 $('#data-container').empty().append(append_html);
             })
